@@ -13,6 +13,7 @@ Route::prefix('auth')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('userprofile', [AuthController::class, 'userProfile']);
         Route::get('logout', [AuthController::class, 'logout']);
+        Route::get('userResource', [AuthController::class,'userResource'])
     });
 });
 

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+
 class AuthController extends Controller
 {
     public function register(Request $request){
@@ -43,5 +44,23 @@ class AuthController extends Controller
             'token' => $token
         ];
     }
+
+    public function userProfile() {
+        $userData = Auth::user(); // Pegando o usuário autenticado
+    
+        if (!$userData) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Usuário não autenticado'
+            ], 401);
+        }
+    
+        return response()->json([
+            'status'  => true,
+            'message' => 'Perfil do Usuário',
+            'data'    => $userData
+        ], 200);
+    }
+    
 
 }

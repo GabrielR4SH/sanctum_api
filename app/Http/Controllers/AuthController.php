@@ -61,6 +61,23 @@ class AuthController extends Controller
             'data'    => $userData
         ], 200);
     }
-    
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $request->user()->tokens()->delete(); // Revoga todos os tokens do usuário
+            return response()->json([
+                'status'  => true,
+                'message' => 'Logout realizado com sucesso',
+            ], 200);
+        }
+
+        return response()->json([
+            'status'  => false,
+            'message' => 'Usuário não autenticado',
+        ], 401);
+    }
 
 }

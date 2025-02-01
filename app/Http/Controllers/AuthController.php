@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -72,6 +73,19 @@ class AuthController extends Controller
             'status'  => true,
             'message' => 'Perfil do Usuário usando API Resource',
             'data'    => new UserResource($user),
+            'authenticated_user_id' => $authenticatedUser ? $authenticatedUser->id : null
+        ], 200);
+    }
+
+    public function userCollection()
+    {
+        $authenticatedUser = Auth::user(); // Obtém o usuário autenticado
+        $users = User::all(); // Busca todos os usuários
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Lista de usuários usando API Collection',
+            'data'    => new UserCollection($users),
             'authenticated_user_id' => $authenticatedUser ? $authenticatedUser->id : null
         ], 200);
     }

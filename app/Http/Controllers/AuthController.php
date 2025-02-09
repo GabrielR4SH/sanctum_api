@@ -87,7 +87,7 @@ class AuthController extends Controller
             'message' => 'Lista de usuários usando API Collection',
             'data'    => new UserCollection($users),
             'authenticated_user_id' => $authenticatedUser ? $authenticatedUser->id : null
-        ], 200);
+        ], 200); 
     }
     public function logout(Request $request)
     {
